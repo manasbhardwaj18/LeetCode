@@ -26,4 +26,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0036-valid-sudoku](https://github.com/manasbhardwaj18/LeetCode/tree/master/0036-valid-sudoku) |
+## String
+|  |
+| ------- |
+| [0058-length-of-last-word](https://github.com/manasbhardwaj18/LeetCode/tree/master/0058-length-of-last-word) |
 <!---LeetCode Topics End-->
