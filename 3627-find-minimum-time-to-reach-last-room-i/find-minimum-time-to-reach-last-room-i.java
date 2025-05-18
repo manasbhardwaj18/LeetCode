@@ -12,6 +12,7 @@ class Solution {
         }
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        result[0][0] = 0;
         pq.offer(new int[]{0, 0, 0});
 
         while (!pq.isEmpty()) {
