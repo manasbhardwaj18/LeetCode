@@ -1,4 +1,4 @@
-<p>Given an array of integers <code>nums</code> and an integer <code>k</code>, return <em>the total number of subarrays whose sum equals to</em> <code>k</code>.</p>
+<h2><a href="https://leetcode.com/problems/subarray-sum-equals-k">Subarray Sum Equals K</a></h2> <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' /><hr><p>Given an array of integers <code>nums</code> and an integer <code>k</code>, return <em>the total number of subarrays whose sum equals to</em> <code>k</code>.</p>
 
 <p>A subarray is a contiguous <strong>non-empty</strong> sequence of elements within an array.</p>
 
