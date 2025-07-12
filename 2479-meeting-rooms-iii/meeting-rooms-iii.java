@@ -1,42 +1,41 @@
+import java.util.*;
+
 class Solution {
     public int mostBooked(int n, int[][] meetings) {
-        int[] count = new int[n];       
-        long[] busy = new long[n];      
+        Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
 
-        Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
+        PriorityQueue<Integer> free = new PriorityQueue<>();
+        for (int i = 0; i < n; ++i) free.offer(i);
 
-        for (int[] meeting : meetings) {
-            int start = meeting[0], end = meeting[1];
-            long earliest = Long.MAX_VALUE;
-            int roomIndex = -1;
-            boolean assigned = false;
+        PriorityQueue<long[]> busy =
+            new PriorityQueue<>((a, b) -> a[0] == b[0] ? Long.compare(a[1], b[1])
+                                                        : Long.compare(a[0], b[0]));
 
-            for (int i = 0; i < n; i++) {
-                if (busy[i] < earliest) {
-                    earliest = busy[i];
-                    roomIndex = i;
-                }
-                if (busy[i] <= start) {
-                    busy[i] = end;
-                    count[i]++;
-                    assigned = true;
-                    break;
-                }
+        int[] cnt = new int[n];
+
+        for (int[] m : meetings) {
+            long start = m[0], end = m[1];
+
+            while (!busy.isEmpty() && busy.peek()[0] <= start)
+                free.offer((int) busy.poll()[1]);
+
+            int room;
+            long newEnd;
+            if (!free.isEmpty()) {
+                room = free.poll();
+                newEnd = end;
+            } else {
+                long[] e = busy.poll();
+                room = (int) e[1];
+                newEnd = e[0] + (end - start);
             }
-
-            if (!assigned) {
-                busy[roomIndex] += (end - start);
-                count[roomIndex]++;
-            }
+            busy.offer(new long[] {newEnd, room});
+            cnt[room]++;
         }
 
-        int max = 0, res = 0;
-        for (int i = 0; i < n; i++) {
-            if (count[i] > max) {
-                max = count[i];
-                res = i;
-            }
-        }
-        return res;
+        int best = 0;
+        for (int i = 1; i < n; ++i)
+            if (cnt[i] > cnt[best]) best = i;
+        return best;
     }
 }
