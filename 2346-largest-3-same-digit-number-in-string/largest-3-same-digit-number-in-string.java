@@ -1,15 +1,11 @@
 class Solution {
     public String largestGoodInteger(String num) {
-        if (num.length() < 3) return "";
-
-        char maxDigit = 0; 
-        for (int i = 2; i < num.length(); i++) {
-            if (num.charAt(i) == num.charAt(i - 1) && num.charAt(i - 1) == num.charAt(i - 2)) {
-                maxDigit = (char) Math.max(maxDigit, num.charAt(i));
+        for (char d = '9'; d >= '0'; d--) {
+            String triple = "" + d + d + d;
+            if (num.contains(triple)) {
+                return triple;
             }
         }
-
-        if (maxDigit == 0) return "";
-        return String.valueOf(maxDigit).repeat(3);
+        return "";
     }
 }
