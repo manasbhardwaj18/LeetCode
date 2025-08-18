@@ -1,35 +1,41 @@
 class Solution {
-    private static final double EPS = 1e-6;
-    private boolean backtrack(double[] A, int n) {
-        if(n == 1) return Math.abs(A[0] - 24) < EPS;
-        for(int i = 0; i < n; i++) {
-            for(int j = i + 1; j < n; j++) {
-                double a = A[i], b = A[j];
-                A[j] = A[n-1];
-                A[i] = a + b;
-                if(backtrack(A, n - 1)) return true;
-                A[i] = a - b;
-                if(backtrack(A, n - 1)) return true;
-                A[i] = b - a;
-                if(backtrack(A, n - 1)) return true;
-                A[i] = a * b;
-                if(backtrack(A, n - 1)) return true;
-                if(Math.abs(b) > EPS) {
-                    A[i] = a / b;
-                    if(backtrack(A, n - 1)) return true;
+    public boolean judgePoint24(int[] cards) {
+        List<Double> nums = new ArrayList<>();
+        for (int card : cards) nums.add((double) card);
+        return solve(nums);
+    }
+
+    private boolean solve(List<Double> nums) {
+        if (nums.size() == 1) {
+            return Math.abs(nums.get(0) - 24.0) < 1e-6;
+        }
+
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) continue;
+
+                List<Double> next = new ArrayList<>();
+                for (int k = 0; k < n; k++) {
+                    if (k != i && k != j) next.add(nums.get(k));
                 }
-                if(Math.abs(a) > EPS) {
-                    A[i] = b / a;
-                    if(backtrack(A, n - 1)) return true;
+
+                double a = nums.get(i), b = nums.get(j);
+                List<Double> results = new ArrayList<>();
+                results.add(a + b);
+                results.add(a - b);
+                results.add(b - a);
+                results.add(a * b);
+                if (Math.abs(b) > 1e-6) results.add(a / b);
+                if (Math.abs(a) > 1e-6) results.add(b / a);
+
+                for (double val : results) {
+                    next.add(val);
+                    if (solve(next)) return true;
+                    next.remove(next.size() - 1);
                 }
-                A[i] = a; A[j] = b;
             }
         }
         return false;
-    }
-    public boolean judgePoint24(int[] nums) {
-        double[] A = new double[nums.length];
-        for(int i = 0; i < nums.length; i++) A[i] = nums[i];
-        return backtrack(A, A.length);
     }
 }
