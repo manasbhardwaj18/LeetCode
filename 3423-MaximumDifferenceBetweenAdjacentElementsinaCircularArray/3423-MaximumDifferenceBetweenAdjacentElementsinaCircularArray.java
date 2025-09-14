@@ -1,15 +1,11 @@
-// Last updated: 9/5/2025, 1:02:41 AM
+// Last updated: 9/14/2025, 8:58:33 AM
 class Solution {
-    public int matchPlayersAndTrainers(int[] player, int[] trainers) {
-        Arrays.sort(player);
-        Arrays.sort(trainers);
-        int i = 0, j = 0, count = 0;
-        while (i < player.length && j < trainers.length) {
-            if (player[i] <= trainers[j]) {
-                i++; count++;
-            }
-            j++;
+    public int maxAdjacentDistance(int[] nums) {
+        int n = nums.length;
+        int maxa = Math.abs(nums[0] - nums[n - 1]);
+        for (int i = 0; i < n - 1; i++) {
+            maxa = Math.max(maxa, Math.abs(nums[i] - nums[i + 1]));
         }
-        return count;
+        return maxa;
     }
 }
