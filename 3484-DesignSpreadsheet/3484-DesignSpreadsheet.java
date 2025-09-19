@@ -1,33 +1,36 @@
-// Last updated: 9/19/2025, 11:48:04 AM
-import java.util.*;
-
+// Last updated: 9/19/2025, 11:48:46 AM
 class Spreadsheet {
-    private int rows;
-    private Map<String, Integer> cells;
 
-    public Spreadsheet(int rows) {
-        this.rows = rows;
-        this.cells = new HashMap<>();
-    }
+
+    private Map<String, Integer> spreadsheet = new HashMap<>();
+    
+    public Spreadsheet(int rows) {}
     
     public void setCell(String cell, int value) {
-        cells.put(cell, value);
+        spreadsheet.put(cell, value);
     }
     
     public void resetCell(String cell) {
-        cells.remove(cell);
+        spreadsheet.put(cell, 0);
     }
     
     public int getValue(String formula) {
-        String[] parts = formula.substring(1).split("\\+");
-        return get(parts[0]) + get(parts[1]);
+        int sum = 0;
+        for (String s : formula.substring(1).split("\\+")) {
+            sum += mapToValue(s);
+        }
+        return sum;
     }
 
-    private int get(String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return cells.getOrDefault(s, 0);
-        }
+    private int mapToValue(String s) {
+        return Character.isLetter(s.charAt(0)) ? spreadsheet.getOrDefault(s, 0) : Integer.parseInt(s);
     }
 }
+
+/**
+ * Your Spreadsheet object will be instantiated and called as such:
+ * Spreadsheet obj = new Spreadsheet(rows);
+ * obj.setCell(cell,value);
+ * obj.resetCell(cell);
+ * int param_3 = obj.getValue(formula);
+ */
