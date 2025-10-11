@@ -1,34 +1,27 @@
-// Last updated: 10/11/2025, 11:53:57 AM
-public class Solution {
-    private int sz;
-    private List<long[]> spell;
-    private long[] dp;
-
-    private long f(int i) {
-        if (i >= sz) return 0;
-        if (dp[i] != -1) return dp[i];
-        long notake = f(i + 1);
-        int j = i + 1;
-        int x = (int) spell.get(i)[0];
-        while (j < sz && spell.get(j)[0] <= x + 2) j++;
-        long take = spell.get(i)[1] + f(j);
-        return dp[i] = Math.max(take, notake);
-    }
-
+// Last updated: 10/11/2025, 11:54:24 AM
+class Solution {
     public long maximumTotalDamage(int[] power) {
-        int n = power.length;
-        if (n == 0) return 0;
         Arrays.sort(power);
-        spell = new ArrayList<>();
-        spell.add(new long[]{power[0], power[0]});
-        for (int i = 1; i < n; i++) {
-            int x = power[i];
-            if (x != power[i - 1]) spell.add(new long[]{x, x});
-            else spell.get(spell.size() - 1)[1] += x;
+
+        long[] dp = new long[power.length];
+        long md = 0;
+        dp[0] = power[0];
+        for (int i = 1, j = 0; i < power.length; i++) {
+            if (power[i] == power[i-1]) {
+                dp[i] = dp[i-1]+power[i];
+            } else {
+                while (power[j]+2 < power[i]) {
+                    md = Math.max(md, dp[j]);
+                    j++;
+                }
+                dp[i] = md + power[i];
+            }
         }
-        sz = spell.size();
-        dp = new long[sz];
-        Arrays.fill(dp, -1L);
-        return f(0);
+        
+        long max = 0;
+        for (long n : dp) {
+            max = Math.max(max, n);
+        }
+        return max;
     }
 }
