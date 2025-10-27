@@ -1,32 +1,31 @@
-// Last updated: 10/27/2025, 7:21:01 PM
+// Last updated: 10/27/2025, 7:21:21 PM
 class Solution {
     public int numberOfBeams(String[] bank) {
-        int n = bank.length;
-        if (n == 0) return 0;
-
-        int[] sd = new int[n];
-        int row = 0;
-
-        for (String it : bank) {
-            int count = 0;
-            for (int i = 0; i < bank[0].length(); i++) {
-                if (it.charAt(i) == '1') count++;
-            }
-            sd[row++] = count;
-        }
-
-        List<Integer> sdwz = new ArrayList<>();
-        for (int i = 0; i < sd.length; i++) {
-            if (sd[i] != 0) sdwz.add(sd[i]);
-        }
-
+        int pre = 0;
         int ans = 0;
-        if (sdwz.size() <= 1) return ans;
+        int number_of_ones;
+        for(int i = 0; i < bank.length; i++)
+        {
+            number_of_ones = 0;
+            
+            for(int j = 0; j < bank[i].length(); j++)
+            {
+                if(bank[i].charAt(j) == '1')
+                {
+                    number_of_ones ++;
+                }
+            }
 
-        for (int i = 0; i < sdwz.size() - 1; i++) {
-            ans += sdwz.get(i) * sdwz.get(i + 1);
+            if(number_of_ones == 0)
+            {
+                continue;
+            }
+
+            ans = ans + (pre * number_of_ones);
+            pre = number_of_ones;
         }
 
         return ans;
+        
     }
 }
