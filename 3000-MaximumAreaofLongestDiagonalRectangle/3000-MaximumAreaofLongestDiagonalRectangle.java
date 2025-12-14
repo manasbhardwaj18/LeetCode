@@ -1,19 +1,22 @@
-// Last updated: 12/14/2025, 1:58:08 PM
+// Last updated: 12/14/2025, 1:58:15 PM
 1class Solution {
-2       public int intersectionSizeTwo(int[][] intervals) {
-3        int n = intervals.length;
-4        Arrays.sort(intervals, (a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]); 
-5        List<Integer> res = new ArrayList<>();
-6        res.add(intervals[0][1] - 1); 
-7        res.add(intervals[0][1]); 
-8        for (int i = 1; i < n; i++) { 
-9            int start = intervals[i][0], end = intervals[i][1], size = res.size(), last = res.get(size - 1), secondLast = res.get(size - 2);
-10            if (start > last) { 
-11                res.add(end - 1);
-12                res.add(end);
-13            } else if (start == last) res.add(end); 
-14            else if (start > secondLast) res.add(end); 
-15        }
-16        return res.size();
-17    }
-18}
+2    public int areaOfMaxDiagonal(int[][] dimensions) {
+3        int maxArea=0;
+4        int maxDia=0;
+5        int n=dimensions.length;
+6        for(int i=0; i<n; i++) {
+7            int l=dimensions[i][0];
+8            int b=dimensions[i][1];
+9
+10            int currDia=l*l+b*b;
+11            int currArea=l*b;
+12
+13            if(currDia>maxDia || (currDia==maxDia && currArea>maxArea)) {
+14                maxArea=currArea;
+15                maxDia=currDia;
+16            }
+17        }
+18
+19        return maxArea;
+20    }
+21}
