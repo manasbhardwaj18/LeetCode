@@ -1,4 +1,4 @@
-// Last updated: 12/14/2025, 1:57:11 PM
+// Last updated: 12/14/2025, 1:57:22 PM
 1class Solution {
 2    int mod = 1000000007;
 3    public int numberOfWays(String corridor) {
@@ -20,7 +20,7 @@
 19                count++;
 20                if(count % 2 == 0){
 21                    flag = true;
-22                }else if(count >= 2){
+22                }else if(count > 2){
 23                    ans = (ans*(b+1))% mod;
 24                    count = 1;
 25                    flag = false;
