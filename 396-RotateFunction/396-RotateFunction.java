@@ -1,4 +1,4 @@
-// Last updated: 5/1/2026, 2:39:28 PM
+// Last updated: 5/1/2026, 2:41:31 PM
 1class Solution {
 2    public int maxRotateFunction(int[] nums) {
 3
@@ -14,10 +14,10 @@
 13      }  
 14
 15      int max=f;
-16      for(int i=n-1;i>0;i--)
+16      for(int i=1;i<n;i++)
 17      {
-18          max=Math.max(max,f+sum-(n*nums[i]));
-19          f=f+sum-(n*nums[i]);
+18          f += sum-(n*nums[n-i]);
+19          max = Math.max(max, f);
 20
 21      }
 22
