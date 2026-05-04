@@ -1,27 +1,41 @@
-// Last updated: 5/4/2026, 2:47:07 PM
-1class Solution {
-2    public void rotate(int[][] matrix) {
-3        int edgeLength = matrix.length;
-4
-5        int top = 0;
-6        int bottom = edgeLength - 1;
-7
-8        while (top < bottom) {
-9            for (int col = 0; col < edgeLength; col++) {
-10                int temp = matrix[top][col];
-11                matrix[top][col] = matrix[bottom][col];
-12                matrix[bottom][col] = temp;
-13            }
-14            top++;
-15            bottom--;
-16        }
-17
-18        for (int row = 0; row < edgeLength; row++) {
-19            for (int col = row + 1; col < edgeLength; col++) {
-20                int temp = matrix[row][col];
-21                matrix[row][col] = matrix[col][row];
-22                matrix[col][row] = temp;
-23            }
-24        }        
-25    }
-26}
+// Last updated: 5/4/2026, 2:58:08 PM
+class Solution {
+    public void rotate(int[][] matrix) {
+        //find transpose (diagonal from left to right)
+        //reverse the matrix
+        
+        int m=matrix.length;
+        int n=matrix[0].length;
+
+        for(int i=0;i<m;i++){
+            for(int j=i+1;j<m;j++){
+                //transpose
+               swap(matrix,i,j);
+            }
+        }
+        System.out.println(matrix);
+
+        //reverse
+        for(int i=0;i<m;i++){
+           
+           int left=0;
+           int right=n-1;
+
+           while(left<right){
+                int temp=matrix[i][left];
+                matrix[i][left]=matrix[i][right];
+                matrix[i][right]=temp;
+
+                left++;
+                right--;
+           }
+        }
+    }
+
+    private void swap(int[][] matrix , int i, int j){
+        int temp=matrix[i][j];
+        matrix[i][j]=matrix[j][i];
+        matrix[j][i]=temp;
+    }
+    
+}
