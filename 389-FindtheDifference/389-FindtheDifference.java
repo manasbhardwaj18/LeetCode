@@ -1,14 +1,15 @@
-// Last updated: 5/10/2026, 12:59:57 PM
+// Last updated: 5/10/2026, 1:01:02 PM
 1class Solution {
 2    public char findTheDifference(String s, String t) {
-3        int sumS = 0, sumT = 0;
-4        for (char c : s.toCharArray()) {
-5            sumS += c;
-6        }
-7
-8        for (char c : t.toCharArray()) {
-9            sumT += c;
-10        }
-11        return (char)(sumT - sumS);
-12    }
-13}
+3        int sumA = 0, sumB = 0;
+4
+5        for(char c : s.toCharArray()){
+6            sumA += c;
+7        }
+8
+9        for(char c : t.toCharArray()){
+10            sumB += c;
+11        }
+12        return (char) (sumB - sumA);
+13    }
+14}
