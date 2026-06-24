@@ -1,4 +1,4 @@
-// Last updated: 6/23/2026, 9:03:55 PM
+// Last updated: 6/24/2026, 4:57:03 PM
 1class Solution {
 2    private static final int MOD = 1000000007;
 3
